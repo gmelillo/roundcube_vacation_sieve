@@ -14,7 +14,7 @@ define ('PLUGIN_ERROR_DEFAULT', 1);
 define ('PLUGIN_ERROR_CONNECT', 2);
 define ('PLUGIN_ERROR_PROCESS', 3);
 
-class vacation_sieve extends rcube_plugin
+class roundcube_vacation_sieve extends rcube_plugin
 {
     public $task = 'settings';
     private $app;
