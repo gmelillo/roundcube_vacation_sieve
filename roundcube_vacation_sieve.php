@@ -147,22 +147,22 @@ class roundcube_vacation_sieve extends rcube_plugin
 
             $format = $this->app->config->get('date_format');
             if(isset($params['enable'])){ $this->obj->set_vacation_enable($params['enable']); }
-            if(isset($params['start']))
-            {
-                $startdate = date_create_from_format($format, $params['start']);
-                if($startdate) { $this->obj->set_vacation_start(date_timestamp_get($startdate)); }
-            }
-            if(isset($params['starttime'])){ $this->obj->set_vacation_starttime($params['starttime']); }
-            if(isset($params['end']))
-            {
-                $enddate = date_create_from_format($format, $params['end']);
-                if($enddate) { $this->obj->set_vacation_end(date_timestamp_get($enddate)); }
-            }
-            if(isset($params['endtime'])){ $this->obj->set_vacation_endtime($params['endtime']); }
+            #if(isset($params['start']))
+            #{
+            #    $startdate = date_create_from_format($format, $params['start']);
+            #    if($startdate) { $this->obj->set_vacation_start(date_timestamp_get($startdate)); }
+            #}
+            #if(isset($params['starttime'])){ $this->obj->set_vacation_starttime($params['starttime']); }
+            #if(isset($params['end']))
+            #{
+            #    $enddate = date_create_from_format($format, $params['end']);
+            #    if($enddate) { $this->obj->set_vacation_end(date_timestamp_get($enddate)); }
+            #}
+            #if(isset($params['endtime'])){ $this->obj->set_vacation_endtime($params['endtime']); }
             if(isset($params['every'])){ $this->obj->set_every($params['every']); }
 
             if(isset($params['subject'])){ $this->obj->set_vacation_subject($params['subject']); }
-            if(isset($params['appendSubject'])){ $this->obj->set_append_subject($params['appendSubject']); }
+            #if(isset($params['appendSubject'])){ $this->obj->set_append_subject($params['appendSubject']); }
 
             if(isset($params['addresses'])){ $this->obj->set_addressed_to($params['addresses']); }
             if(isset($params['sendFrom'])){ $this->obj->set_send_from($params['sendFrom']); }
@@ -204,15 +204,15 @@ class roundcube_vacation_sieve extends rcube_plugin
         $params = array();
         $tmp = get_input_value('_vacation_enable', RCUBE_INPUT_POST);
         $params['enable'] = isset($tmp) ? true : false;
-        $params['start'] = get_input_value('_vacation_start', RCUBE_INPUT_POST);
-        $params['starttime'] = get_input_value('_vacation_starttime', RCUBE_INPUT_POST);
-        $params['end'] = get_input_value('_vacation_end', RCUBE_INPUT_POST);
-        $params['endtime'] = get_input_value('_vacation_endtime', RCUBE_INPUT_POST);
+        #$params['start'] = get_input_value('_vacation_start', RCUBE_INPUT_POST);
+        #$params['starttime'] = get_input_value('_vacation_starttime', RCUBE_INPUT_POST);
+        #$params['end'] = get_input_value('_vacation_end', RCUBE_INPUT_POST);
+        #$params['endtime'] = get_input_value('_vacation_endtime', RCUBE_INPUT_POST);
         $params['every'] = intval(get_input_value('_every', RCUBE_INPUT_POST));
 
         $params['subject'] = get_input_value('_vacation_subject', RCUBE_INPUT_POST);
         $tmp = get_input_value('_append_subject', RCUBE_INPUT_POST);
-        $params['appendSubject'] = isset($tmp) ? true : false;
+        #$params['appendSubject'] = isset($tmp) ? true : false;
         unset($tmp);
 
         $params['addresses'] = get_input_value('_addressed_to', RCUBE_INPUT_POST, true);
@@ -295,47 +295,47 @@ class roundcube_vacation_sieve extends rcube_plugin
             $field_id = 'vacation_enable';
             $input_vacationenable = new html_checkbox(array('name' => '_vacation_enable', 'id' => $field_id, 'value' => 1));
             $table->add('title', html::label($field_id, Q($this->gettext('vacationenable'))));
-            $table->add(null, $input_vacationenable->show($this->obj->is_vacation_enable() ? 1 : 0));
+            $table->add(null, $input_vacationenable->show($this->obj->is_vacation_enable()));
 
-            $field_id = 'vacation_start';
-            $input_vacationstart = new html_inputfield(array('name' => '_vacation_start', 'id' => $field_id, 'size' => 10));
-            $table->add('title', html::label($field_id, Q($this->gettext('period'))));
-            $vacStart = $this->obj->get_vacation_start();
+            #$field_id = 'vacation_start';
+            #$input_vacationstart = new html_inputfield(array('name' => '_vacation_start', 'id' => $field_id, 'size' => 10));
+            #$table->add('title', html::label($field_id, Q($this->gettext('period'))));
+            #$vacStart = $this->obj->get_vacation_start();
 
-            $hour_text = array();
-            $hour_value = array();
-            $wholeDay = Q($this->gettext('wholeday'));
-            $hour_value[$wholeDay] = '';
-            $hour_text[$wholeDay] = $wholeDay;
+            #$hour_text = array();
+            #$hour_value = array();
+            #$wholeDay = Q($this->gettext('wholeday'));
+            #$hour_value[$wholeDay] = '';
+            #$hour_text[$wholeDay] = $wholeDay;
 
-            $minHour = $this->config['working_hours'][0];
-            $maxHour = $this->config['working_hours'][1];
+            #$minHour = $this->config['working_hours'][0];
+            #$maxHour = $this->config['working_hours'][1];
 
-            foreach(range($minHour,$maxHour) as $tmp_hour){
-                $hour_text[$tmp_hour] = sprintf("%02d:00", $tmp_hour);
-                $hour_value[$tmp_hour] = $tmp_hour;
-            }
-            unset($tmp_hour);
+            #foreach(range($minHour,$maxHour) as $tmp_hour){
+            #    $hour_text[$tmp_hour] = sprintf("%02d:00", $tmp_hour);
+            #    $hour_value[$tmp_hour] = $tmp_hour;
+            #}
+            #unset($tmp_hour);
 
-            $field_id = 'vacation_starttime';
-            $input_vacationstarttime = new html_select(array('name' => '_vacation_starttime'));
-            $input_vacationstarttime->add($hour_text, $hour_value);
+            #$field_id = 'vacation_starttime';
+            #$input_vacationstarttime = new html_select(array('name' => '_vacation_starttime'));
+            #$input_vacationstarttime->add($hour_text, $hour_value);
 
-            $field_id = 'vacation_endtime';
-            $input_vacationendtime = new html_select(array('name' => '_vacation_endtime'));
-            $input_vacationendtime->add($hour_text, $hour_value);
+            #$field_id = 'vacation_endtime';
+            #$input_vacationendtime = new html_select(array('name' => '_vacation_endtime'));
+            #$input_vacationendtime->add($hour_text, $hour_value);
 
-            $field_id = 'vacation_end';
-            $input_vacationend = new html_inputfield(array('name' => '_vacation_end', 'id' => $field_id, 'size' => 10));
-            $vacEnd = $this->obj->get_vacation_end();
+            #$field_id = 'vacation_end';
+            #$input_vacationend = new html_inputfield(array('name' => '_vacation_end', 'id' => $field_id, 'size' => 10));
+            #$vacEnd = $this->obj->get_vacation_end();
 
-            $periodFields = $this->gettext('vacationfrom').' '.
-                $input_vacationstart->show(date($format, $vacStart)).' '.
-                $input_vacationstarttime->show($hour_text[$this->obj->get_vacation_starttime()]).' '.
-                $this->gettext('vacationto').' '.
-                $input_vacationend->show(date($format, $vacEnd)).' '.
-                $input_vacationendtime->show($hour_text[$this->obj->get_vacation_endtime()]);
-            $table->add(null, $periodFields);
+            #$periodFields = $this->gettext('vacationfrom').' '.
+            #    $input_vacationstart->show(date($format, $vacStart)).' '.
+            #    $input_vacationstarttime->show($hour_text[$this->obj->get_vacation_starttime()]).' '.
+            #    $this->gettext('vacationto').' '.
+            #    $input_vacationend->show(date($format, $vacEnd)).' '.
+            #    $input_vacationendtime->show($hour_text[$this->obj->get_vacation_endtime()]);
+            #$table->add(null, $periodFields);
 
             $table->add_row();
             $field_id = 'every';
@@ -363,11 +363,11 @@ class roundcube_vacation_sieve extends rcube_plugin
             $table->add('title', html::label($field_id, Q($this->gettext('vacationsubject'))));
             $table->add(null, $input_vacationsubject->show($this->obj->get_vacation_subject()));
 
-            $table->add_row();
-            $field_id = '_append_subject';
-            $input_appendsubject = new html_checkbox(array('name' => '_append_subject', 'id' => $field_id, 'value' => 1));
-            $table->add('title', html::label($field_id, Q($this->gettext('append_subject'))));
-            $table->add(null, $input_appendsubject->show($this->obj->get_append_subject() ? 1 : 0));
+            #$table->add_row();
+            #$field_id = '_append_subject';
+            #$input_appendsubject = new html_checkbox(array('name' => '_append_subject', 'id' => $field_id, 'value' => 1));
+            #$table->add('title', html::label($field_id, Q($this->gettext('append_subject'))));
+            #$table->add(null, $input_appendsubject->show($this->obj->get_append_subject() ? 1 : 0));
 
             # Message
             $table->add(array('colspan' => 2, 'class' => 'section'),Q($this->gettext('vacationmessage')));
